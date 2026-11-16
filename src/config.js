@@ -13,11 +13,20 @@ const deepFreeze = (obj) => {
 };
 
 export const CONFIG = deepFreeze({
-  canvas: {
-    selector: 'canvas',
+  // Logical game-world size. ALL gameplay math uses these units; the canvas is
+  // scaled to fit the screen, so the display resolution never affects physics.
+  world: {
     width: 1000,
     height: 500,
+  },
+
+  display: {
+    canvasSelector: 'canvas',
+    // element the canvas is fitted inside (keeps the world's aspect ratio)
+    containerSelector: '.parentDiv',
     background: 'black',
+    // crisp, unblurred sprites when scaled up
+    pixelArt: true,
   },
 
   loop: {
@@ -156,6 +165,7 @@ export const CONFIG = deepFreeze({
     actions: {
       pause: ['KeyP'],
       resetHighScore: ['KeyR'],
+      toggleFullscreen: ['KeyF'],
     },
   },
 
@@ -166,6 +176,7 @@ export const CONFIG = deepFreeze({
     playButtonId: 'playButton',
     pauseButtonId: 'pauseButton',
     restartButtonId: 'restartButton',
+    fullscreenButtonId: 'fullscreenButton',
   },
 
   debug: {

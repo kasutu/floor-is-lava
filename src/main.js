@@ -17,18 +17,23 @@ import { Score } from './systems/Score.js';
 import { Hud } from './ui/Hud.js';
 import { Menu } from './ui/Menu.js';
 import { DebugRenderer } from './debug/DebugRenderer.js';
-
-const setupCanvas = ({ selector, width, height, background }) => {
-  const canvas = document.querySelector(selector);
-  canvas.width = width;
-  canvas.height = height;
-  canvas.style.background = background;
-  return canvas.getContext('2d');
-};
+import { Viewport } from './graphics/Viewport.js';
+import { Fullscreen } from './ui/Fullscreen.js';
 
 const main = async () => {
-  const ctx = setupCanvas(CONFIG.canvas);
-  const { width, height } = CONFIG.canvas;
+  const { display, world } = CONFIG;
+  const { width, height } = world;
+
+  const canvas = document.querySelector(display.canvasSelector);
+  canvas.style.background = display.background;
+  const viewport = new Viewport({
+    canvas,
+    container: document.querySelector(display.containerSelector),
+    world,
+    pixelArt: display.pixelArt,
+  });
+  const { ctx } = viewport;
+  const fullscreen = new Fullscreen();
 
   const images = await loadImages(CONFIG.assets.images);
   const sounds = createSounds(CONFIG.assets.sounds);
@@ -57,14 +62,17 @@ const main = async () => {
 
   input.onAction('pause', () => game.togglePause());
   input.onAction('resetHighScore', () => game.resetHighScore());
+  input.onAction('toggleFullscreen', () => fullscreen.toggle());
   input.attach();
 
   menu.onPlay(() => game.play());
   menu.onPause(() => game.pause());
   menu.onRestart(() => game.restart());
+  menu.onFullscreen(() => fullscreen.toggle());
 
   menu.setScores(game.scores);
-  game.renderIdle();
+  viewport.onResize = () => game.redraw();
+  viewport.attach();
 };
 
 main();

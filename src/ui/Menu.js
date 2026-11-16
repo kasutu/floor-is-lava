@@ -7,6 +7,11 @@ export class Menu {
     this.playButton = doc.getElementById(ids.playButtonId);
     this.pauseButton = doc.getElementById(ids.pauseButtonId);
     this.restartButton = doc.getElementById(ids.restartButtonId);
+    this.fullscreenButton = doc.getElementById(ids.fullscreenButtonId);
+  }
+
+  onFullscreen(handler) {
+    this.fullscreenButton?.addEventListener('click', handler);
   }
 
   onPlay(handler) {

@@ -68,8 +68,15 @@ src/
   entities/            Player, Platform, Lava, Background (state + drawing)
   physics/             PlayerController (movement), CollisionSystem
   systems/             PlatformField (spawn/move/cull), Score
-  ui/                  Hud (canvas text), Menu (DOM overlay)
+  graphics/            Viewport (resolution scaling), sprite animation + drawing
+  ui/                  Hud (canvas text), Menu (DOM overlay), Fullscreen
   debug/               optional debug overlays (CONFIG.debug.enabled)
 ```
+
+### Resolution independence
+All gameplay math runs in a fixed logical world of `CONFIG.world` (1000×500) units.
+`Viewport` scales that world to fit the window or the full screen (letterboxed, sharp on
+high-DPI screens). Changing the screen size never changes physics, so don't use
+`canvas.width`/`canvas.height` in game code. Use `CONFIG.world` instead.
 
 The game uses ES modules, so serve it over HTTP (`npm start`) rather than opening the file directly.

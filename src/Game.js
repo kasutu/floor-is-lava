@@ -134,7 +134,7 @@ export class Game {
 
   render() {
     const { ctx } = this;
-    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    this.clear();
 
     this.background.draw(ctx);
     this.platforms.draw(ctx);
@@ -146,7 +146,19 @@ export class Game {
 
   /** Draws the idle screen shown before the first play. */
   renderIdle() {
-    this.ctx.clearRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+    this.clear();
     this.background.draw(this.ctx);
+  }
+
+  /** Repaints the current frame, e.g. after the canvas was resized while paused. */
+  redraw() {
+    if (this.state === State.READY) this.renderIdle();
+    else this.render();
+  }
+
+  clear() {
+    // world units: the viewport transform maps these to real pixels
+    const { width, height } = this.config.world;
+    this.ctx.clearRect(0, 0, width, height);
   }
 }
