@@ -21,9 +21,10 @@
       <h2 class="score" id="highScore">0</h2>
       <p>HighScore</p>
       <div>
-        <button class="playButton" onclick="playButtonHandler()">PLAY</button>
-        <button class="pauseButton" onclick="playGame('pause')">PAUSE</button>
-        <button class="restartButton" onclick="location.reload()">RESTART</button>
+        <button class="playButton" id="playButton">PLAY</button>
+        <button class="pauseButton" id="pauseButton">PAUSE</button>
+        <button class="restartButton" id="restartButton">RESTART</button>
+        <button class="restartButton" id="fullscreenButton">FULLSCREEN</button>
       </div>
     </div>
   </div>
@@ -38,10 +39,10 @@
   </div>
   <div class="controls">
     Keyboard Controls </br>
-    WASD - movement | R - reset high score | P - pause
+    WASD - movement | R - reset high score | P - pause | F - fullscreen
   </div>
-  <!-- js file link tag -->
-  <script src="./index.js" type="text/javascript"></script>
+  <!-- entry point (ES module; serve over http, e.g. `npm start`) -->
+  <script src="./main.js" type="module"></script>
 </body>
 
 </html>

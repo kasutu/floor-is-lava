@@ -38,9 +38,22 @@
         overflow-x: scroll;
       }
 
-      .parentDiv {
-        width: 100%;
+      /* page is a full-height column; the canvas area takes the leftover space */
+      html, body {
         height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .parentDiv {
+        box-sizing: border-box;
+        flex: 1 1 0;
+        min-height: 0;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -103,4 +116,24 @@
         width: 100px;
         border-radius: 12px;
         font-family: retro;
+      }
+      /* canvas size is set by Viewport.js; keep it from stretching */
+      .canvas {
+        display: block;
+        flex: none;
+      }
+
+      /* fullscreen: hide the banners and let the canvas use the whole screen */
+      :root:fullscreen .highScore,
+      :root:fullscreen .controls {
+        display: none;
+      }
+
+      :root:fullscreen .parentDiv {
+        padding: 0;
+        background: black;
+      }
+
+      :root:fullscreen canvas {
+        border: none;
       }
