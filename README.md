@@ -51,3 +51,25 @@ final project for SE first sem
 - 1 player
 - canvas
 - movements using trigonometry
+
+## Code structure
+All tunable values (physics, sizes, speeds, asset paths, key bindings, debug flags) live in `src/config.js`.
+
+```
+src/
+  config.js            all game settings
+  main.js              composition root: builds and wires everything
+  Game.js              game state machine + update/render orchestration
+  core/GameLoop.js     fixed-timestep loop
+  input/               keyboard -> controls/actions
+  audio/               sound wrapper
+  assets/              image loading
+  storage/             high score persistence
+  entities/            Player, Platform, Lava, Background (state + drawing)
+  physics/             PlayerController (movement), CollisionSystem
+  systems/             PlatformField (spawn/move/cull), Score
+  ui/                  Hud (canvas text), Menu (DOM overlay)
+  debug/               optional debug overlays (CONFIG.debug.enabled)
+```
+
+The game uses ES modules, so serve it over HTTP (`npm start`) rather than opening the file directly.
